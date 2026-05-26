@@ -1,7 +1,7 @@
 import GameCard from "../GameCard/GameCard.jsx";
 import "./GameGrid.css";
 
-export default function GameGrid({ games }) {
+export default function GameGrid({ games, onGameClick }) {
   if (!games.length) {
     return <p className="game-grid__empty">Nenhum jogo encontrado.</p>;
   }
@@ -9,7 +9,11 @@ export default function GameGrid({ games }) {
   return (
     <section className="game-grid" aria-label="Lista de jogos">
       {games.map((game) => (
-        <GameCard key={game.id ?? game.igdbId} game={game} />
+        <GameCard
+          key={game.id ?? game.igdbId}
+          game={game}
+          onClick={onGameClick}
+        />
       ))}
     </section>
   );

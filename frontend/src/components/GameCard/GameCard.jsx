@@ -5,11 +5,23 @@ function formatRating(value) {
   return Number(value).toFixed(1);
 }
 
-export default function GameCard({ game }) {
+export default function GameCard({ game, onClick }) {
   const rating = formatRating(game.totalRating ?? game.rating);
 
   return (
-    <article className="game-card">
+    <article
+      className="game-card"
+      role="button"
+      tabIndex={0}
+      onClick={() => onClick?.(game)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick?.(game);
+        }
+      }}
+      aria-label={`Ver detalhes de ${game.title}`}
+    >
       <div className="game-card__cover-wrap">
         {game.coverImageUrl ? (
           <img
@@ -64,6 +76,7 @@ export default function GameCard({ game }) {
             href={game.igdbUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
           >
             Ver na IGDB
           </a>

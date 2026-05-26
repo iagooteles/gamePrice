@@ -16,4 +16,17 @@ export async function fetchGames(page = 1) {
   return data;
 }
 
+export async function fetchGameById(id) {
+  const res = await fetch(`/api/games/${encodeURIComponent(id)}`);
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(
+      data.error || data.message || "Falha ao carregar detalhes do jogo."
+    );
+  }
+
+  return data.game;
+}
+
 export { GAMES_PER_PAGE };

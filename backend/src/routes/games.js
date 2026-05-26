@@ -15,10 +15,10 @@ function serializeDoc(data) {
 
 router.get("/", async (req, res) => {
   try {
-    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const page = Math.max(1, Number.parseInt(req.query.page, 10) || 1);
     const limit = Math.min(
       MAX_LIMIT,
-      Math.max(1, parseInt(req.query.limit, 10) || DEFAULT_LIMIT)
+      Math.max(1, Number.parseInt(req.query.limit, 10) || DEFAULT_LIMIT)
     );
     const offset = (page - 1) * limit;
 
@@ -76,6 +76,31 @@ router.get("/", async (req, res) => {
     console.error("GET /api/games:", err);
     res.status(500).json({
       error: "Erro ao buscar jogos no Firestore.",
+      message: err.message,
+    });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const db = getDb();
+    const ref = db.collection(getGamesCollectionName()).doc(req.params.id);
+    const doc = await ref.get();
+
+    if (!doc.exists) {
+      return res.status(404).json({ error: "Jogo não encontrado." });
+    }
+
+    res.json({
+      game: {
+        id: doc.id,
+        ...serializeDoc(doc.data()),
+      },
+    });
+  } catch (err) {
+    console.error("GET /api/games/:id:", err);
+    res.status(500).json({
+      error: "Erro ao buscar detalhes do jogo no Firestore.",
       message: err.message,
     });
   }
