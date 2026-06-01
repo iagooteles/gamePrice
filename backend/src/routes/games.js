@@ -1,5 +1,11 @@
 import { Router } from "express";
 import { getDb, getGamesCollectionName } from "../lib/firebase.js";
+import {
+  findGameByTitle,
+  getPriceHistory,
+  getPrices,
+  isItadConfigured,
+} from "../lib/itad.js";
 
 const router = Router();
 const DEFAULT_LIMIT = 20;
@@ -76,6 +82,72 @@ router.get("/", async (req, res) => {
     console.error("GET /api/games:", err);
     res.status(500).json({
       error: "Erro ao buscar jogos no Firestore.",
+      message: err.message,
+    });
+  }
+});
+
+router.get("/:id/prices", async (req, res) => {
+  try {
+    if (!isItadConfigured()) {
+      return res.status(503).json({
+        error: "ITAD_API_KEY não configurada no backend/.env.",
+      });
+    }
+
+    const db = getDb();
+    const ref = db.collection(getGamesCollectionName()).doc(req.params.id);
+    const doc = await ref.get();
+
+    if (!doc.exists) {
+      return res.status(404).json({ error: "Jogo não encontrado." });
+    }
+
+    const game = {
+      id: doc.id,
+      ...serializeDoc(doc.data()),
+    };
+
+    const itadGame = await findGameByTitle(game.title);
+
+    if (!itadGame) {
+      return res.json({
+        game,
+        itad: null,
+        historyLow: null,
+        deals: [],
+        history: [],
+        historyCount: 0,
+        pricesFound: false,
+        message: "Preços não encontrados para este jogo no ITAD.",
+      });
+    }
+
+    const [pricesPayload, history] = await Promise.all([
+      getPrices(itadGame.id),
+      getPriceHistory(itadGame.id),
+    ]);
+
+    const priceData = pricesPayload[0] || { deals: [] };
+
+    res.json({
+      game,
+      itad: {
+        id: itadGame.id,
+        title: itadGame.title,
+        type: itadGame.type,
+        matchedBy: "title",
+      },
+      historyLow: priceData.historyLow || null,
+      deals: priceData.deals || [],
+      history: Array.isArray(history) ? history : [],
+      historyCount: Array.isArray(history) ? history.length : 0,
+      pricesFound: true,
+    });
+  } catch (err) {
+    console.error("GET /api/games/:id/prices:", err);
+    res.status(500).json({
+      error: "Erro ao buscar preços do jogo.",
       message: err.message,
     });
   }

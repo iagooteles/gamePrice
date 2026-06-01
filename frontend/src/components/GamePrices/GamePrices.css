@@ -1,0 +1,75 @@
+.game-prices {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.game-prices__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.game-prices__eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-soft);
+}
+
+.game-prices__title {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.game-prices__low {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.game-prices__low strong {
+  color: #86efac;
+}
+
+.game-prices__notice {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  color: #fcd34d;
+  font-size: 0.9rem;
+}
+
+.game-prices__error {
+  margin: 0;
+  color: #fca5a5;
+}
+
+.game-prices__retry {
+  align-self: flex-start;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface-elevated);
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.game-prices__history-wrap h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.game-prices .loading {
+  padding: 1.5rem 0;
+}

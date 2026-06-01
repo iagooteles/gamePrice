@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetchGameById, fetchGames, GAMES_PER_PAGE } from "./api/games.js";
+import { fetchGamePrices } from "./api/prices.js";
 import AuthModal from "./components/AuthModal/AuthModal.jsx";
 import FirebaseSetupBanner from "./components/FirebaseSetupBanner/FirebaseSetupBanner.jsx";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage.jsx";
@@ -35,6 +36,9 @@ export default function App() {
   const [detailGame, setDetailGame] = useState(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState(null);
+  const [pricesData, setPricesData] = useState(null);
+  const [pricesLoading, setPricesLoading] = useState(false);
+  const [pricesError, setPricesError] = useState(null);
   const [authModal, setAuthModal] = useState(null);
 
   const loadPage = useCallback(async (targetPage) => {
@@ -66,20 +70,38 @@ export default function App() {
     loadPage(page);
   }, [page, loadPage, route.name]);
 
+  const loadGamePrices = useCallback(async (gameId) => {
+    setPricesLoading(true);
+    setPricesError(null);
+    setPricesData(null);
+    try {
+      const data = await fetchGamePrices(gameId);
+      setPricesData(data);
+    } catch (err) {
+      setPricesError(err.message);
+    } finally {
+      setPricesLoading(false);
+    }
+  }, []);
+
   const loadGameDetail = useCallback(async (gameId) => {
     setDetailLoading(true);
     setDetailError(null);
     setDetailGame(null);
+    setPricesData(null);
+    setPricesError(null);
+    setPricesLoading(false);
     try {
       const game = await fetchGameById(gameId);
       setDetailGame(game);
       globalThis.scrollTo({ top: 0, behavior: "smooth" });
+      loadGamePrices(gameId);
     } catch (err) {
       setDetailError(err.message);
     } finally {
       setDetailLoading(false);
     }
-  }, []);
+  }, [loadGamePrices]);
 
   useEffect(() => {
     if (route.name !== "detail") return;
@@ -207,7 +229,14 @@ export default function App() {
             )}
 
             {!authInitializing && user && !detailLoading && !detailError && detailGame && (
-              <GameDetail game={detailGame} onBack={handleBackToCatalog} />
+              <GameDetail
+                game={detailGame}
+                onBack={handleBackToCatalog}
+                prices={pricesData}
+                pricesLoading={pricesLoading}
+                pricesError={pricesError}
+                onRetryPrices={() => loadGamePrices(route.gameId)}
+              />
             )}
           </>
         )}

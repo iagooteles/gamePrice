@@ -11,7 +11,8 @@
     "igdb:02": "node scripts/02-enrich-games-for-firebase.js",
     "igdb:03": "node scripts/03-upload-firestore.js",
     "igdb:03:sync": "node scripts/03-upload-firestore.js --prune",
-    "igdb:pipeline": "npm run igdb:01 && npm run igdb:02 && npm run igdb:03:sync"
+    "igdb:pipeline": "npm run igdb:01 && npm run igdb:02 && npm run igdb:03:sync",
+    "test:itad": "node scripts/test-itad.js"
   },
   "dependencies": {
     "cors": "^2.8.6",

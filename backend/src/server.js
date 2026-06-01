@@ -11,6 +11,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/health", (_req, res) => {
+  res.json({ ok: true });
+});
+
 app.use("/api/games", gamesRouter);
 
 app.use((_req, res) => {
@@ -20,4 +24,5 @@ app.use((_req, res) => {
 app.listen(PORT, () => {
   console.log(`API GamePrice em http://localhost:${PORT}`);
   console.log(`Jogos: http://localhost:${PORT}/api/games?page=1&limit=20`);
+  console.log(`Preços: http://localhost:${PORT}/api/games/320140/prices`);
 });

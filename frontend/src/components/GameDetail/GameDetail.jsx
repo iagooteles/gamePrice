@@ -1,4 +1,5 @@
 import "./GameDetail.css";
+import GamePrices from "../GamePrices/GamePrices.jsx";
 
 function formatRating(value) {
   if (value == null || Number.isNaN(Number(value))) return null;
@@ -21,7 +22,14 @@ function DetailItem({ label, children }) {
   );
 }
 
-export default function GameDetail({ game, onBack }) {
+export default function GameDetail({
+  game,
+  onBack,
+  prices,
+  pricesLoading,
+  pricesError,
+  onRetryPrices,
+}) {
   const rating = formatRating(game.totalRating ?? game.rating);
   const popularity = formatPopularity(game.igdbPopularityValue);
 
@@ -87,6 +95,13 @@ export default function GameDetail({ game, onBack }) {
         <h2>Descrição</h2>
         <p>{game.description || "Este jogo ainda não possui descrição."}</p>
       </article>
+
+      <GamePrices
+        prices={prices}
+        loading={pricesLoading}
+        error={pricesError}
+        onRetry={onRetryPrices}
+      />
     </section>
   );
 }

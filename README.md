@@ -46,6 +46,9 @@ Ele deve conter, no minimo:
 FIREBASE_SERVICE_ACCOUNT_PATH=./secrets/nome-do-arquivo.json
 FIRESTORE_COLLECTION=games
 PORT=3001
+
+# IsThereAnyDeal — preços na PDP
+ITAD_API_KEY=
 ```
 
 Se for rodar a pipeline da IGDB, tambem precisa:
@@ -93,6 +96,7 @@ Rotas principais:
 - `GET /health`
 - `GET /api/games?page=1&limit=20`
 - `GET /api/games/:id`
+- `GET /api/games/:id/prices` — ofertas + histórico (ITAD, country=BR)
 
 ## 4. Rodar o frontend
 
@@ -120,6 +124,15 @@ O frontend usa proxy do Vite para chamar o backend em `http://localhost:3001`.
 5. Quando logado, a navbar mostra o usuario e a opcao de logout.
 6. Ao clicar em um jogo, o usuario vai para a PDP em `/games/:id`.
 7. A PDP so mostra as informacoes detalhadas se o usuario estiver logado.
+8. Na PDP logada, a secao **Preços e ofertas** busca dados do ITAD pelo titulo do jogo.
+
+Teste rapido da API de precos:
+
+```bash
+cd backend
+npm run test:itad
+curl http://localhost:3001/api/games/320140/prices
+```
 
 ## 6. Autenticacao e acesso a PDP
 
