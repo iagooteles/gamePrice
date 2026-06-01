@@ -1,0 +1,343 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, Segoe UI, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f5f2ec;
+  color: #1d2328;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(33, 117, 104, 0.1), rgba(245, 242, 236, 0) 280px),
+    #f5f2ec;
+}
+
+.app {
+  width: min(1040px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.search-panel {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 460px);
+  gap: 24px;
+  align-items: end;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #d8d1c5;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #217568;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 0.95;
+}
+
+.search-form {
+  display: flex;
+  gap: 8px;
+}
+
+input,
+button {
+  height: 44px;
+  border-radius: 8px;
+  font: inherit;
+}
+
+input {
+  width: 100%;
+  border: 1px solid #c9c1b4;
+  padding: 0 14px;
+  color: #1d2328;
+  background: #fffaf2;
+}
+
+input:focus {
+  outline: 3px solid rgba(33, 117, 104, 0.24);
+  border-color: #217568;
+}
+
+button {
+  border: 0;
+  padding: 0 18px;
+  color: white;
+  background: #217568;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #195b50;
+}
+
+button:disabled {
+  background: #87918e;
+  cursor: wait;
+}
+
+.status {
+  margin-top: 24px;
+  padding: 14px 16px;
+  border: 1px solid #d8d1c5;
+  border-radius: 8px;
+  background: #fffaf2;
+}
+
+.status.error {
+  border-color: #d9826b;
+  color: #7a271a;
+  background: #fff1ec;
+}
+
+.result {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.game-summary {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.cover {
+  width: 100%;
+  min-height: 240px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #ded7cb;
+}
+
+.game-info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid #d8d1c5;
+  border-radius: 8px;
+  background: #fffaf2;
+}
+
+.game-info h2 {
+  margin: 0 0 10px;
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #e6dfd3;
+  color: #3f4647;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.history {
+  margin: 18px 0 0;
+  color: #217568;
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.section-title {
+  display: flex;
+  gap: 16px;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.history-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.deals {
+  display: grid;
+  gap: 10px;
+}
+
+.deal {
+  display: grid;
+  grid-template-columns: minmax(130px, 1fr) 110px 86px 92px;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #d8d1c5;
+  border-radius: 8px;
+  background: #fffaf2;
+}
+
+.shop {
+  min-width: 0;
+  font-weight: 900;
+}
+
+.price {
+  color: #217568;
+  font-weight: 900;
+}
+
+.regular {
+  color: #71736f;
+  text-decoration: line-through;
+}
+
+.discount {
+  color: #8a3f16;
+  font-weight: 900;
+}
+
+.deal a {
+  justify-self: end;
+  color: #1d2328;
+  font-weight: 800;
+  text-decoration-color: #217568;
+  text-underline-offset: 3px;
+}
+
+.history-panel {
+  display: grid;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.history-filters {
+  display: grid;
+  grid-template-columns: minmax(160px, 1.4fr) repeat(5, minmax(110px, 1fr)) auto;
+  gap: 10px;
+  align-items: end;
+  padding: 14px;
+  border: 1px solid #d8d1c5;
+  border-radius: 8px;
+  background: #fffaf2;
+}
+
+.filter-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.filter-field span {
+  color: #71736f;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.filter-field input {
+  min-width: 0;
+}
+
+.clear-filters {
+  min-width: 78px;
+  background: #3f4647;
+}
+
+.clear-filters:hover {
+  background: #252b2c;
+}
+
+.history-list {
+  display: grid;
+  gap: 8px;
+}
+
+.history-row {
+  display: grid;
+  grid-template-columns: minmax(170px, 1fr) 110px 86px 92px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #d8d1c5;
+  border-radius: 8px;
+  background: #fffaf2;
+}
+
+.history-row strong,
+.history-row span {
+  display: block;
+}
+
+.history-row span {
+  margin-top: 2px;
+  color: #71736f;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 760px) {
+  .app {
+    width: min(100% - 20px, 1040px);
+    padding: 24px 0;
+  }
+
+  .search-panel,
+  .game-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .search-form {
+    flex-direction: column;
+  }
+
+  .cover {
+    max-height: 360px;
+  }
+
+  .section-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .history-counts {
+    justify-content: flex-start;
+  }
+
+  .history-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .deal,
+  .history-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .deal a {
+    justify-self: start;
+  }
+}

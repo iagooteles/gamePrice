@@ -1,8 +1,2 @@
 node_modules/
-package-lock.json
 .env
-data/*.json
-!data/.gitkeep
-*firebase-adminsdk*.json
-secrets/*
-!secrets/.gitkeep
