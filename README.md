@@ -58,7 +58,7 @@ TWITCH_CLIENT_ID=
 TWITCH_CLIENT_SECRET=
 IGDB_TOP_N=100
 ```
-
+.
 ### Frontend
 
 Arquivo: `frontend/.env`
