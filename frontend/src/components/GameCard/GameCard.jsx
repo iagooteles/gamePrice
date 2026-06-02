@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./GameCard.css";
 
 function formatRating(value) {
@@ -7,6 +8,8 @@ function formatRating(value) {
 
 export default function GameCard({ game, onClick }) {
   const rating = formatRating(game.totalRating ?? game.rating);
+  const [coverFailed, setCoverFailed] = useState(false);
+  const showCover = game.coverImageUrl && !coverFailed;
 
   return (
     <article
@@ -23,16 +26,18 @@ export default function GameCard({ game, onClick }) {
       aria-label={`Ver detalhes de ${game.title}`}
     >
       <div className="game-card__cover-wrap">
-        {game.coverImageUrl ? (
+        {showCover ? (
           <img
             className="game-card__cover"
             src={game.coverImageUrl}
             alt={`Capa de ${game.title}`}
             loading="lazy"
+            onError={() => setCoverFailed(true)}
           />
         ) : (
           <div className="game-card__cover game-card__cover--placeholder" aria-hidden>
-            ?
+            <span className="game-card__placeholder-icon">GP</span>
+            <span className="game-card__placeholder-label">Sem capa</span>
           </div>
         )}
         {game.rank != null && (

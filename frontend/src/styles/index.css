@@ -6,14 +6,20 @@
 
 :root {
   --nav-height: 3.75rem;
-  --bg: #0f1419;
-  --surface: #1a2332;
-  --surface-elevated: #243044;
-  --border: #2d3a4f;
-  --text: #e8edf4;
-  --text-muted: #94a3b8;
-  --accent: #6366f1;
-  --accent-soft: #a5b4fc;
+  --bg: #0b0f15;
+  --bg-accent: #101625;
+  --surface: #151d29;
+  --surface-elevated: #1b2433;
+  --surface-glass: rgba(27, 36, 51, 0.82);
+  --border: #243041;
+  --border-strong: #344256;
+  --text: #eef2f8;
+  --text-secondary: #c7d0dc;
+  --text-muted: #96a3b3;
+  --accent: #7075ff;
+  --accent-strong: #8b8fff;
+  --accent-soft: #d6dbff;
+  --glow: rgba(112, 117, 255, 0.28);
 }
 
 html {
@@ -24,7 +30,9 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: "Outfit", system-ui, sans-serif;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top, rgba(112, 117, 255, 0.1) 0%, transparent 32%),
+    linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 42%, #090c12 100%);
   color: var(--text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -36,6 +44,6 @@ body {
 
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-soft);
   outline-offset: 2px;
 }

@@ -115,7 +115,9 @@ function Navbar({ onOpenLogin, onOpenRegister, onGoHome }) {
           }}
         >
           <span className="navbar__logo" aria-hidden="true">
-            GP
+            <span className="navbar__logo-letter navbar__logo-letter--g">G</span>
+            <span className="navbar__logo-spark" />
+            <span className="navbar__logo-letter navbar__logo-letter--p">P</span>
           </span>
           <span className="navbar__name">GamePrice</span>
         </a>

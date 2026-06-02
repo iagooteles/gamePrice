@@ -6,7 +6,7 @@
 }
 
 .app__main {
-  padding: 1.5rem;
+  padding: 1.7rem 1.5rem 2.1rem;
 }
 
 .login-required {
@@ -27,7 +27,7 @@
 
 .login-required p {
   margin: 0.75rem 0 0;
-  color: var(--text-muted);
+  color: #c2ccd8;
 }
 
 .login-required__actions {
