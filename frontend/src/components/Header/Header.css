@@ -1,29 +1,54 @@
 .header {
-  padding: 2rem 1.5rem 1.25rem;
+  padding: 2.35rem 1.5rem 1.45rem;
   border-bottom: 1px solid var(--border);
   background: linear-gradient(
     180deg,
-    rgba(99, 102, 241, 0.08) 0%,
+    rgba(103, 122, 255, 0.12) 0%,
+    rgba(39, 69, 122, 0.1) 46%,
     transparent 100%
   );
 }
 
+.header__eyebrow {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-tech);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8fc1ff;
+}
+
 .header__title {
   margin: 0;
-  font-size: clamp(2.25rem, 6vw, 4rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
+  font-size: clamp(2.1rem, 5.2vw, 3.6rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
 }
 
 .header__subtitle {
-  margin: 0.5rem 0 0;
+  margin: 0.6rem 0 0;
   color: var(--text-muted);
-  font-size: clamp(1.05rem, 2.5vw, 1.5rem);
+  font-size: clamp(1rem, 2.2vw, 1.38rem);
+  font-weight: 300;
+  max-width: 58ch;
 }
 
 .header__meta {
-  margin: 0.75rem 0 0;
-  font-size: 0.875rem;
+  margin: 0.9rem 0 0;
+  font-size: 0.84rem;
   color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 720px) {
+  .header {
+    padding-top: 1.9rem;
+  }
+
+  .header__eyebrow {
+    font-size: 0.68rem;
+    margin-bottom: 0.5rem;
+  }
 }

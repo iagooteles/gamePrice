@@ -91,9 +91,15 @@ export default function GameDetail({
         </div>
       </div>
 
-      <article className="game-detail__description-card">
-        <h2>Descrição</h2>
-        <p>{game.description || "Este jogo ainda não possui descrição."}</p>
+      <article className="game-detail__description-card" aria-label="Descrição do jogo">
+        <header className="game-detail__description-head">
+          <p className="game-detail__description-eyebrow">Lore & Contexto</p>
+          <h2>Descrição</h2>
+        </header>
+
+        <div className="game-detail__description-body">
+          <p>{game.description || "Este jogo ainda não possui descrição."}</p>
+        </div>
       </article>
 
       <GamePrices

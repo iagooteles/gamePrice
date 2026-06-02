@@ -5,7 +5,7 @@
 }
 
 :root {
-  --nav-height: 3.75rem;
+  --nav-height: 4.25rem;
   --bg: #0f1419;
   --surface: #1a2332;
   --surface-elevated: #243044;
@@ -14,6 +14,8 @@
   --text-muted: #94a3b8;
   --accent: #6366f1;
   --accent-soft: #a5b4fc;
+  --font-body: "Oxanium", system-ui, sans-serif;
+  --font-tech: "Orbitron", "Oxanium", sans-serif;
 }
 
 html {
@@ -26,10 +28,12 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-  font-family: "Outfit", system-ui, sans-serif;
+  font-family: var(--font-body);
+  font-weight: 400;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.45;
+  letter-spacing: 0.012em;
   -webkit-font-smoothing: antialiased;
 }
 

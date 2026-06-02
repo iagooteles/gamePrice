@@ -3,8 +3,9 @@ import "./Header.css";
 export default function Header({ total, perPage, currentPage, totalPages }) {
   return (
     <header className="header">
-      <h1 className="header__title">Catálogo de jogos</h1>
-      <p className="header__subtitle">Os jogos mais populares na IGDB</p>
+      <p className="header__eyebrow">GamePrice Explorer</p>
+      <h1 className="header__title">Descubra os melhores jogos</h1>
+      <p className="header__subtitle">Uma seleção popular da IGDB com navegação rápida e visual moderno</p>
       {total != null && (
         <p className="header__meta">
           {total} jogos · {perPage} por página

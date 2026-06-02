@@ -136,20 +136,74 @@
 }
 
 .game-detail__description-card {
-  padding: 1.5rem;
+  position: relative;
+  padding: 1.4rem;
+  background: linear-gradient(180deg, rgba(28, 43, 67, 0.94), rgba(21, 34, 54, 0.96));
+  overflow: hidden;
+}
+
+.game-detail__description-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(143, 193, 255, 0.52), transparent);
+}
+
+.game-detail__description-head {
+  margin-bottom: 1rem;
+}
+
+.game-detail__description-eyebrow {
+  margin: 0 0 0.35rem;
+  color: #8fc1ff;
+  font-family: var(--font-tech);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.68rem;
 }
 
 .game-detail__description-card h2 {
-  margin: 0 0 0.75rem;
-  font-size: 1.25rem;
+  margin: 0;
+  font-size: 1.28rem;
+  letter-spacing: 0.01em;
 }
 
-.game-detail__description-card p {
+.game-detail__description-body {
+  position: relative;
+  border: 1px solid rgba(125, 160, 214, 0.23);
+  background: linear-gradient(180deg, rgba(13, 23, 39, 0.5), rgba(13, 23, 39, 0.28));
+  border-radius: 0.82rem;
+  padding: 1rem 1.05rem 1.05rem 1.2rem;
+}
+
+.game-detail__description-body::before {
+  content: "";
+  position: absolute;
+  top: 0.85rem;
+  bottom: 0.85rem;
+  left: 0.62rem;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(144, 193, 255, 0.95), rgba(144, 193, 255, 0.2));
+}
+
+.game-detail__description-body p {
   margin: 0;
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.7;
+  color: #c4d3e7;
+  font-size: 1.01rem;
+  line-height: 1.78;
+  letter-spacing: 0.012em;
   white-space: pre-line;
+  text-wrap: pretty;
+}
+
+.game-detail__description-body p::first-letter {
+  font-family: var(--font-tech);
+  font-size: 1.45em;
+  color: #f1f6ff;
 }
 
 @media (max-width: 760px) {
@@ -163,5 +217,18 @@
 
   .game-detail__info {
     grid-template-columns: 1fr;
+  }
+
+  .game-detail__description-card {
+    padding: 1.1rem;
+  }
+
+  .game-detail__description-body {
+    padding: 0.9rem 0.9rem 0.95rem 1.05rem;
+  }
+
+  .game-detail__description-body p {
+    font-size: 0.95rem;
+    line-height: 1.7;
   }
 }
