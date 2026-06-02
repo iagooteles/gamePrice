@@ -188,3 +188,81 @@ Para sincronizar e remover documentos antigos que nao estao no JSON:
 ```bash
 npm run igdb:03:sync
 ```
+
+## 8. Tipos de integração utilizados
+
+Classificação das integrações entre sistemas no GamePrice (disciplina / arquitetura de software).
+
+### Utilizados no projeto
+
+#### Compartilhamento de dados
+
+Principal forma de integração em tempo de execução. Os sistemas trocam dados via **HTTP + JSON** (APIs REST-like):
+
+| Origem | Destino | Dados |
+|--------|---------|--------|
+| Frontend React | API Express | Lista de jogos, detalhes, preços |
+| API Express | Firestore (Firebase Admin) | Catálogo de jogos |
+| API Express | ITAD (IsThereAnyDeal) | Ofertas e histórico de preços (BR) |
+| Pipeline (scripts) | IGDB (Twitch) | Top jogos e metadados |
+
+#### SOA (Arquitetura orientada a serviços)
+
+O projeto separa **serviços independentes**, cada um com responsabilidade e interface própria:
+
+| Serviço | Papel |
+|---------|--------|
+| Frontend React | Interface com o usuário |
+| API Express | Orquestração e regras de negócio |
+| Firebase (Auth + Firestore) | Autenticação e persistência |
+| IGDB | Fonte de catálogo (pipeline) |
+| ITAD | Fonte de preços (PDP) |
+
+A comunicação ocorre por rede (URLs, SDKs, credenciais), típico de SOA na prática.
+
+#### ETL (Extração, transformação e carregamento)
+
+Integração **em lote** na pipeline do backend (`npm run igdb:pipeline`):
+
+| Etapa | Script / módulo | Função |
+|-------|-----------------|--------|
+| **Extract** | `01-fetch-top-games.js` | Busca jogos na IGDB |
+| **Transform** | `02-enrich-games-for-firebase.js`, `map-igdb-to-firestore.js` | Normaliza e filtra dados |
+| **Load** | `03-upload-firestore.js` | Grava na coleção `games` do Firestore |
+
+#### Eventos (uso parcial)
+
+Não há barramento de eventos entre microsserviços (Kafka, filas, webhooks). Há reação a eventos **no frontend**:
+
+- Firebase Auth: `onAuthStateChanged` — a interface atualiza quando o usuário faz login ou logout.
+
+### Não utilizados neste projeto
+
+| Tipo | Motivo |
+|------|--------|
+| **GraphQL** | Não usamos GraphQL. Firebase Firestore e Auth utilizam **SDK/REST próprios**, não GraphQL. |
+| **Chamadas de procedimentos (RPC)** | Não há gRPC, CORBA ou RPC clássico. A API Express expõe **recursos HTTP** (mais próximo de compartilhamento de dados). |
+| **Mensagens** | Sem RabbitMQ, SQS, pub/sub ou filas entre serviços. |
+| **Transferência de arquivos** | Arquivos JSON em `backend/data/` são artefatos **locais** da pipeline, não integração FTP/SFTP entre sistemas. |
+
+### Visão geral
+
+```text
+[IGDB] ──ETL──► [Firestore] ◄──Admin SDK── [API Express] ◄──HTTP/JSON── [React]
+                                              │
+                                              └──HTTP──► [ITAD]
+[Firebase Auth] ◄──SDK── [React]
+```
+
+### Resumo para documentação acadêmica
+
+| Tipo | Usado? |
+|------|--------|
+| Compartilhamento de dados | Sim |
+| SOA | Sim |
+| ETL | Sim |
+| Eventos | Parcial (apenas auth no cliente) |
+| GraphQL | Não |
+| RPC | Não |
+| Mensagens | Não |
+| Transferência de arquivos | Não |
