@@ -5,10 +5,19 @@ import gamesRouter from "./routes/games.js";
 
 const PORT = Number(process.env.PORT) || 3001;
 
+const corsOrigins = process.env.FRONTEND_URL
+  ? process.env.FRONTEND_URL.split(",").map((o) => o.trim())
+  : true;
+
 await initFirebaseAdmin();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: corsOrigins,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.get("/health", (_req, res) => {

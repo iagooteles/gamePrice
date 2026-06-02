@@ -2,6 +2,8 @@
 
 Projeto com backend em Express + Firebase Admin e frontend em React (Vite) integrado ao Firebase Auth.
 
+**Deploy em produção:** veja o passo a passo em [docs/DEPLOY-RENDER.md](docs/DEPLOY-RENDER.md) (Render — backend + frontend separados).
+
 ## Antes de rodar
 
 Voce precisa ter instalado:

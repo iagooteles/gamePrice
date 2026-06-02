@@ -1,3 +1,5 @@
+import { apiUrl } from "./config.js";
+
 const GAMES_PER_PAGE = 20;
 
 export async function fetchGames(page = 1) {
@@ -6,7 +8,7 @@ export async function fetchGames(page = 1) {
     limit: String(GAMES_PER_PAGE),
   });
 
-  const res = await fetch(`/api/games?${params}`);
+  const res = await fetch(apiUrl(`/api/games?${params}`));
   const data = await res.json();
 
   if (!res.ok) {
@@ -17,7 +19,7 @@ export async function fetchGames(page = 1) {
 }
 
 export async function fetchGameById(id) {
-  const res = await fetch(`/api/games/${encodeURIComponent(id)}`);
+  const res = await fetch(apiUrl(`/api/games/${encodeURIComponent(id)}`));
   const data = await res.json();
 
   if (!res.ok) {

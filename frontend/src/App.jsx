@@ -41,6 +41,15 @@ export default function App() {
   const [pricesError, setPricesError] = useState(null);
   const [authModal, setAuthModal] = useState(null);
 
+  const closeAuthModal = useCallback(() => setAuthModal(null), []);
+
+  useEffect(() => {
+    document.body.style.overflow = "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   const loadPage = useCallback(async (targetPage) => {
     setLoading(true);
     setError(null);
@@ -146,7 +155,7 @@ export default function App() {
 
       <AuthModal
         mode={authModal}
-        onClose={() => setAuthModal(null)}
+        onClose={closeAuthModal}
         onSwitchMode={setAuthModal}
       />
 
