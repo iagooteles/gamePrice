@@ -109,8 +109,8 @@ Em **Environment** → **Add Environment Variable**:
 3. Teste no navegador ou terminal:
 
 ```text
-https://gameprice-wcrq.onrender.com//health
-https://gameprice-wcrq.onrender.com//api/games?page=1&limit=5
+https://gameprice-wcrq.onrender.com/health
+https://gameprice-wcrq.onrender.com/api/games?page=1&limit=5
 ```
 ---
 
@@ -156,10 +156,14 @@ Copie os valores do seu `frontend/.env` local.
 Volte ao **Web Service** do backend → **Environment**:
 
 ```env
-FRONTEND_URL=https://gameprice.onrender.com
+FRONTEND_URL=https://gameprice-1.onrender.com
 ```
 
+Use a URL **exata** do seu Static Site (ex.: `gameprice-1.onrender.com`, não outro nome).
+
 Salve → o Render faz **redeploy** automático do backend.
+
+O código também aceita qualquer origem `*.onrender.com` após o deploy da correção de CORS.
 
 Se tiver preview ou domínio customizado, use vírgula:
 
@@ -200,8 +204,11 @@ Sem isso, login funciona localmente mas falha em produção.
 
 ### CORS / “Failed to fetch”
 
-- `FRONTEND_URL` no backend deve ser **exatamente** a URL do static site (com `https://`, sem barra final)
-- Redeploy do backend após alterar
+- Frontend em `https://gameprice-1.onrender.com` → backend em `https://gameprice-wcrq.onrender.com` (domínios **diferentes** = precisa de CORS).
+- No backend Render, defina `FRONTEND_URL=https://gameprice-1.onrender.com` (URL real do Static Site, sem `/` no final).
+- Faça **push** do código atualizado e **Manual Deploy** do backend (CORS liberado para `*.onrender.com`).
+- Redeploy do backend após alterar env vars.
+- No Firebase, **Authorized domains** deve incluir `gameprice-1.onrender.com` (login).
 
 ### API retorna 404 no frontend
 
