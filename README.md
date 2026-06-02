@@ -230,21 +230,6 @@ Integração **em lote** na pipeline do backend (`npm run igdb:pipeline`):
 | **Transform** | `02-enrich-games-for-firebase.js`, `map-igdb-to-firestore.js` | Normaliza e filtra dados |
 | **Load** | `03-upload-firestore.js` | Grava na coleção `games` do Firestore |
 
-#### Eventos (uso parcial)
-
-Não há barramento de eventos entre microsserviços (Kafka, filas, webhooks). Há reação a eventos **no frontend**:
-
-- Firebase Auth: `onAuthStateChanged` — a interface atualiza quando o usuário faz login ou logout.
-
-### Não utilizados neste projeto
-
-| Tipo | Motivo |
-|------|--------|
-| **GraphQL** | Não usamos GraphQL. Firebase Firestore e Auth utilizam **SDK/REST próprios**, não GraphQL. |
-| **Chamadas de procedimentos (RPC)** | Não há gRPC, CORBA ou RPC clássico. A API Express expõe **recursos HTTP** (mais próximo de compartilhamento de dados). |
-| **Mensagens** | Sem RabbitMQ, SQS, pub/sub ou filas entre serviços. |
-| **Transferência de arquivos** | Arquivos JSON em `backend/data/` são artefatos **locais** da pipeline, não integração FTP/SFTP entre sistemas. |
-
 ### Visão geral
 
 ```text
@@ -253,16 +238,3 @@ Não há barramento de eventos entre microsserviços (Kafka, filas, webhooks). H
                                               └──HTTP──► [ITAD]
 [Firebase Auth] ◄──SDK── [React]
 ```
-
-### Resumo para documentação acadêmica
-
-| Tipo | Usado? |
-|------|--------|
-| Compartilhamento de dados | Sim |
-| SOA | Sim |
-| ETL | Sim |
-| Eventos | Parcial (apenas auth no cliente) |
-| GraphQL | Não |
-| RPC | Não |
-| Mensagens | Não |
-| Transferência de arquivos | Não |
