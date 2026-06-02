@@ -15,7 +15,7 @@ Usuário
                │ fetch (VITE_API_URL)
                ▼
 ┌─────────────────────────────┐
-│  Web Service (backend)       │  https://gameprice-api.onrender.com
+│  Web Service (backend)       │  https://gameprice-wcrq.onrender.com/
 │  Express + Firebase + ITAD   │
 └──────────────┬──────────────┘
                │
@@ -76,7 +76,8 @@ Confirme que `.gitignore` cobre esses arquivos.
 | **Root Directory** | `backend` |
 | **Runtime** | Node |
 | **Build Command** | `npm install` |
-| **Start Command** | `npm start` |
+| **Start Command** | `npm start` (ou `yarn start`) |
+| **Health Check Path** | `/health` |
 | **Instance Type** | Free (ou Starter se quiser menos cold start) |
 
 ### 2.2 Variáveis de ambiente (Environment)
@@ -104,16 +105,13 @@ Em **Environment** → **Add Environment Variable**:
 ### 2.4 Deploy e teste
 
 1. **Create Web Service** e aguarde o deploy
-2. Anote a URL: `https://gameprice-api.onrender.com` (exemplo)
+2. Anote a URL: `https://gameprice-wcrq.onrender.com/` (exemplo)
 3. Teste no navegador ou terminal:
 
 ```text
-https://gameprice-api.onrender.com/health
-https://gameprice-api.onrender.com/api/games?page=1&limit=5
+https://gameprice-wcrq.onrender.com//health
+https://gameprice-wcrq.onrender.com//api/games?page=1&limit=5
 ```
-
-**Plano Free:** o serviço “dorme” após inatividade; a primeira requisição pode levar ~30–60s.
-
 ---
 
 ## Parte 3 — Deploy do **frontend** (Static Site)
@@ -138,7 +136,7 @@ No Static Site, variáveis `VITE_*` são lidas **na hora do build**. Adicione:
 
 | Key | Valor |
 |-----|--------|
-| `VITE_API_URL` | `https://gameprice-api.onrender.com` | URL real do backend (sem `/` no final) |
+| `VITE_API_URL` | `https://gameprice-wcrq.onrender.com/` | URL real do backend (sem `/` no final) |
 | `VITE_FIREBASE_API_KEY` | do Firebase Console |
 | `VITE_FIREBASE_AUTH_DOMAIN` | `gameprice-bd3ba.firebaseapp.com` |
 | `VITE_FIREBASE_PROJECT_ID` | `gameprice-bd3ba` |
@@ -209,6 +207,15 @@ Sem isso, login funciona localmente mas falha em produção.
 
 - `VITE_API_URL` incorreta ou build antigo
 - No Static Site: **Manual Deploy** → **Clear build cache & deploy** após mudar `VITE_*`
+
+### 404 em todas as rotas (servidor “live” nos logs)
+
+- O app precisa escutar em **`0.0.0.0`** e na porta `PORT` (já ajustado em `server.js`).
+- No Render → Web Service → **Settings** → **Health Check Path**: `/health` (não `/` vazio).
+- Confirme **Root Directory** = `backend` e tipo **Web Service** (não Static Site).
+- Após novo deploy, teste:
+  - `https://seu-app.onrender.com/health` → `{"ok":true}`
+  - Se o corpo for HTML “Not Found” vazio, o tráfego ainda não chega no Node — veja os logs ao acessar a URL.
 
 ### Backend 500 ao iniciar
 

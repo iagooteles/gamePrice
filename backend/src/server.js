@@ -20,6 +20,15 @@ app.use(
 );
 app.use(express.json());
 
+app.get("/", (_req, res) => {
+  res.json({
+    ok: true,
+    service: "gameprice-api",
+    health: "/health",
+    games: "/api/games?page=1&limit=20",
+  });
+});
+
 app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
@@ -30,8 +39,10 @@ app.use((_req, res) => {
   res.status(404).json({ error: "Rota não encontrada." });
 });
 
-app.listen(PORT, () => {
-  console.log(`API GamePrice em http://localhost:${PORT}`);
+const HOST = "0.0.0.0";
+
+app.listen(PORT, HOST, () => {
+  console.log(`API GamePrice em http://${HOST}:${PORT}`);
   console.log(`Jogos: http://localhost:${PORT}/api/games?page=1&limit=20`);
   console.log(`Preços: http://localhost:${PORT}/api/games/320140/prices`);
 });
